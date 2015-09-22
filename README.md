@@ -6,6 +6,7 @@ for dynamic projects
 
 ![Alt text](http://im.ezgif.com/tmp/ezgif-655236192.gif "DSS")
 
+***[LIVE DEMO](http://codepen.io/anon/pen/jbrorZ?editors=100 "LIVE DEMO")***
 
 
 # Dynamic Style Sheets
