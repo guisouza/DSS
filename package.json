@@ -1,0 +1,24 @@
+{
+  "name": "DSS",
+  "version": "0.0.0",
+  "description": "Dynamic Style Sheets",
+  "author": "Guilherme (Coder) de Souza",
+  "homepage": "https://github.com/guisouza/dss",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/guisouza/dss.git"
+  },
+  "main": "dist/dss.min.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "0.11.0",
+    "grunt-contrib-concat": "^0.4.0",
+    "grunt-contrib-uglify": "^0.4.0"
+  },
+  "dependencies": {
+  }
+}
