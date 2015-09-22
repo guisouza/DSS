@@ -1,5 +1,5 @@
 # DSS (NOT SAFE FOR PRODUCTION)
-Dyamic Style Sheets
+Dynamic Style Sheets
 for dynamic projects
 
 ![Alt text](http://i.imgur.com/tPRotMv.png "DSS")
