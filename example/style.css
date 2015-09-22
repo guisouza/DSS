@@ -1,8 +1,3 @@
 .box{
-	width: 50px;
-	height: 50px;
 	background: ||companyColor||;
-	position: absolute;
-	top: ||mouseY-25||px;
-	left: ||mouseX-25||px;
 }

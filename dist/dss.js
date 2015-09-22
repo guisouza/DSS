@@ -168,6 +168,9 @@
 		var stylesheets = document.querySelectorAll('link[rel="dynamic-stylesheet"]');
 		var qStylesheets = stylesheets.length;
 		var loadedStylesheets = 0;
+		if (qStylesheets === 0){
+			dss.core.IS_INITIALIZED = true;
+		}
 		return [].forEach.call(stylesheets, function(stylesheet) {
 			if (stylesheet.attributes.href){
 				return dss.core.loadStyleSheets(stylesheet.attributes.href.value,
@@ -194,7 +197,14 @@
 		var inlineStyles = document.querySelectorAll('style[type="dynamic-stylesheet"]');
 		[].forEach.call(inlineStyles,function(style){
 			dss.core.parseInlineStyleSheets(style.textContent);
+
+			var newStyle = document.createElement("style");
+			newStyle.setAttribute('rel','inline-stylesheet');
+			newStyle.appendChild(document.createTextNode(style.textContent));
+			document.head.appendChild(newStyle);
 		});
+
+
 	};
 
 })(this.dss);
@@ -392,8 +402,9 @@
 		style.setAttribute('rel','stylesheet');
 		style.setAttribute('href',path);
 		document.head.appendChild(style);
-
-		sheet.match(/.*{[^}]*}/gmi).forEach(dss.core.parseRule);
+		var sheetMatches = sheet.match(/.*{[^}]*}/gmi);
+		if (sheetMatches !== null)
+			sheet.match(/.*{[^}]*}/gmi).forEach(dss.core.parseRule);
 	};
 
 })(this.dss);
@@ -440,12 +451,12 @@
 (function(dss){
 'use strict';
 	dss.core.render = function (){
-		var styles = document.querySelectorAll('[rel="dynamic-stylesheet"]');
+		var styles = document.querySelectorAll('[rel="dss-generated-stylesheet"]');
 		[].forEach.call(styles,function(style){
 			document.head.removeChild(style);
 		});
 		var style = document.createElement("style");
-		style.setAttribute('rel','dynamic-stylesheet');
+		style.setAttribute('rel','dss-generated-stylesheet');
 		style.appendChild(document.createTextNode(dss.core.generateCss(dss.core.flatRules())));
 		document.head.appendChild(style);
 	};
@@ -453,7 +464,7 @@
 
 
 
-//File : src/interface/dss.addDefaultPropery.js
+//File : src/interface/dss.addDefaultProperty.js
 
 (function(dss){
 'use strict';
