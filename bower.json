@@ -1,0 +1,23 @@
+{
+  "name": "dss",
+  "version": "0.0.3",
+  "homepage": "https://github.com/guisouza/dss",
+  "description": "DSS - Dynamic Style Sheets",
+  "main": "dist/dss.min.js",
+  "keywords": [
+    "css",
+    "dss",
+    "dynamic"
+  ],
+  "authors": [
+    "Guilherme (coder) de Souza"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

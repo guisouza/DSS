@@ -2,6 +2,13 @@
 Dynamic Style Sheets
 for dynamic projects
 
+
+[![Join the chat at https://gitter.im/guisouza/dss](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/guisouza/dss?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
+
+
+
 ![Alt text](http://i.imgur.com/tPRotMv.png "DSS")
 
 ![Alt text](http://im.ezgif.com/tmp/ezgif-655236192.gif "DSS")
