@@ -3,6 +3,6 @@
 (function(dss) {
   'use strict';
 
-	dss.core.defineMethod('init', dss.core.fetchStyleSheets);
-	document.addEventListener('DOMContentLoaded', dss.init, false);
+  dss.core.defineMethod('init', dss.core.fetchStyleSheets);
+  document.addEventListener('DOMContentLoaded', dss.init, false);
 })(this.dss);

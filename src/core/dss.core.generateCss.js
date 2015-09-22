@@ -3,15 +3,15 @@
 (function(dss) {
   'use strict';
 
-	dss.core.generateCss = function (rules) {
-		var generatedCss = '';
+  dss.core.generateCss = function (rules) {
+    var generatedCss = '';
 
-		for (var rule in rules) {
-			generatedCss += rule + '{' + dss.core.concatProps(rules[rule]) + '}';
-		}
+    for (var rule in rules) {
+      generatedCss += rule + '{' + dss.core.concatProps(rules[rule]) + '}';
+    }
 
-		return generatedCss;
-	};
+    return generatedCss;
+  };
 })(this.dss);
 
 

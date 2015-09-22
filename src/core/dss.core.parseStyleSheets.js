@@ -3,8 +3,8 @@
 (function(dss) {
   'use strict';
 
-	dss.core.parseStyleSheets = function(sheet, path){
-		var style = document.createElement('link');
+  dss.core.parseStyleSheets = function(sheet, path){
+    var style = document.createElement('link');
     var sheetMatches = sheet.match(/.*{[^}]*}/gmi);
 
     style.setAttribute('rel', 'stylesheet');
@@ -12,8 +12,8 @@
 
     document.head.appendChild(style);
 
-		if (sheetMatches !== null) {
-			sheet.match(/.*{[^}]*}/gmi).forEach(dss.core.parseRule);
+    if (sheetMatches !== null) {
+      sheet.match(/.*{[^}]*}/gmi).forEach(dss.core.parseRule);
     }
-	};
+  };
 })(this.dss);

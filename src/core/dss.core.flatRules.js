@@ -3,20 +3,20 @@
 (function(dss) {
   'use strict';
 
-	dss.core.flatRules = function() {
-		var flattedRules = {};
+  dss.core.flatRules = function() {
+    var flattedRules = {};
 
-		for(var rule in dss.core.myRules){
-			if (!flattedRules.hasOwnProperty(rule.trim())) {
-				flattedRules[rule.trim()] = [];
+    for(var rule in dss.core.myRules){
+      if (!flattedRules.hasOwnProperty(rule.trim())) {
+        flattedRules[rule.trim()] = [];
       }
-			flattedRules[rule.trim()].push(dss.core.myRules[rule]);
-		}
+      flattedRules[rule.trim()].push(dss.core.myRules[rule]);
+    }
 
-		for(var _rule in flattedRules) {
-			flattedRules[_rule] = dss.core.flatProperties(flattedRules[_rule]);
-		}
+    for(var _rule in flattedRules) {
+      flattedRules[_rule] = dss.core.flatProperties(flattedRules[_rule]);
+    }
 
-		return flattedRules;
-	};
+    return flattedRules;
+  };
 })(this.dss);

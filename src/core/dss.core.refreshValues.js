@@ -3,5 +3,5 @@
 (function(dss) {
   'use strict';
 
-	dss.core.refreshValues = [];
+  dss.core.refreshValues = [];
 })(this.dss);
