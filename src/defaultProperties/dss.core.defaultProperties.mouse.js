@@ -11,8 +11,8 @@
 
 			getter : function(e){
 				return {
-					x : e.pageX,
-					y : e.pageY,
+					x : e.pageX || 0,
+					y : e.pageY || 0,
 				};
 			}
 		};
