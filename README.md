@@ -49,12 +49,12 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 ```
 ```css
 .box{
-	width: 50px;
-	height: 50px;
-	background: ||companyColor:red||;
-	position: absolute;
-	top: ||mouseY-25||px;
-	left: ||mouseX-25||px;
+  width: 50px;
+  height: 50px;
+  background: ||companyColor:red||;
+  position: absolute;
+  top: ||mouseY-25||px;
+  left: ||mouseX-25||px;
 }
 ```
 The **mouseY** and **mouseX** identifiers will automatically receive the mouse position on the screen, every time it changes. 
@@ -68,7 +68,7 @@ dss.setProperty('companyColor','#1616FF')
 # Javascript API
 
 **dss.setProperty**
-```js	
+```js 
 dss.setProperty('companyColor','#1616FF')
 ```
 
@@ -76,18 +76,18 @@ dss.setProperty('companyColor','#1616FF')
 ```js
 //will generate mouseX and mouseY property everytime document fires mousemove
 dss.addDefaultPropery('mouse',function(){
-	return{
-		context : document,
+  return{
+    context : document,
 
-		event : 'mousemove',
+    event : 'mousemove',
 
-		getter : function(e){
-			return {
-				x : e.pageX,
-				y : e.pageY,
-			};
-		}
-	};
+    getter : function(e){
+      return {
+        x : e.pageX,
+        y : e.pageY,
+      };
+    }
+  };
 });
 ```
 
