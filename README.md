@@ -35,7 +35,7 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 <!--
 NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your css.*/
 -->
-<style rel="dynamic-stylesheet">
+<style type="dynamic-stylesheet">
 
 ...
 </style>
