@@ -245,7 +245,6 @@
 'use strict';
 
 	function _parse(value){
-		console.log('value',value);
 		var newValue = value;
 		for (var property in dss.core.dynamics) {
 			if(typeof dss.core.dynamics[property] === 'number'){
@@ -256,8 +255,6 @@
 				newValue = newValue.replace(new RegExp(property,'gmi'),"'"+dss.core.dynamics[property]+"'");
 			}	
 		}
-
-		console.log('newValue',newValue);
 
 		try{
 			return eval(newValue);
