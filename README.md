@@ -4,6 +4,10 @@ for dynamic projects
 
 ![Alt text](http://i.imgur.com/tPRotMv.png "DSS")
 
+![Alt text](http://im.ezgif.com/tmp/ezgif-655236192.gif "DSS")
+
+
+
 # Dynamic Style Sheets
 
 Dynamic Style Sheets gives you the ability to dynamically set values to your css properties on the go.
