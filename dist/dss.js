@@ -245,6 +245,7 @@
 'use strict';
 
 	function _parse(value){
+		console.log('value',value);
 		var newValue = value;
 		for (var property in dss.core.dynamics) {
 			if(typeof dss.core.dynamics[property] === 'number'){
@@ -256,6 +257,8 @@
 			}	
 		}
 
+		console.log('newValue',newValue);
+
 		try{
 			return eval(newValue);
 		}catch(err){
@@ -265,13 +268,16 @@
 
 	function _parseFields(fullValue){
 		var fields = fullValue.replace(/(\|\|[^\|]*\|\|)/gmi,function(value){
-			var rawField = value.replace(/\|/gmi,'').split(':');
+		var rawField = value.replace(/\|/gmi,'').split(':');
 
 			if (dss.core.dynamics)
 				if (dss.core.dynamics[rawField[0]])
 					return dss.core.dynamics[rawField[0]];
 
-			return _parse(rawField[0]) || rawField[1] || false;
+			if (_parse(rawField[0]) !== false)
+				return _parse(rawField[0]);
+			
+			return rawField[1] || false;
 
 		});
 		return fields;
@@ -514,7 +520,7 @@
 
 	dss.core.defineMethod('setProperty',function(property,value){
 		if (!dss.core.dynamics)
-			dss.core.dynamics = [];
+			dss.core.dynamics = {};
 		dss.core.dynamics[property] = value;
 		if (dss.core.IS_INITIALIZED){
 			dss.core.refreshDss(dss.core.refreshValues);
