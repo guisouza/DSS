@@ -25,6 +25,11 @@ An DSS example
 
 First things first ...  
 
+```bash
+	bower install dss;
+```
+
+
 ```html
 <!--load the dss-->
 <script src="dss.js"></script>
