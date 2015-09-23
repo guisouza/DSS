@@ -80,7 +80,7 @@ dss.setProperty('companyColor','#1616FF')
 **dss.setDynamicProperty**
 ```js
 //will generate mouseX and mouseY property everytime document fires mousemove
-dss.setDynamicPropery('mouse',function(){
+dss.setDynamicProperty('mouse',function(){
 	return{
 		context : document,
 
