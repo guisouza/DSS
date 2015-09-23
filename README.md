@@ -45,7 +45,7 @@ NOTE : use the **dss-enabled** attribute so I can put poison in your css.
 **or**
 ```html
 <!--
-NOTE : use the **dss-enabled** type attribute so I can put poison in your css.
+NOTE : use the **dss-enabled** attribute so I can put poison in your css.
 -->
 <style type="stylesheet" dss-enabled>
 
