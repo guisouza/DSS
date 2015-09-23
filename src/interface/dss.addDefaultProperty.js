@@ -7,7 +7,7 @@
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  dss.core.defineMethod('addDefaultPropery', function(nameSpace, defaultProperty) {
+  dss.core.defineMethod('addDefaultProperty', function(nameSpace, defaultProperty) {
     defaultProperty = defaultProperty();
     defaultProperty.context.addEventListener(
       defaultProperty.event,
@@ -20,7 +20,7 @@
     );
   });
 
-  dss.core.defineMethod('addDynamicPropery', function(nameSpace, defaultProperty) {
+  dss.core.defineMethod('addDynamicProperty', function(nameSpace, defaultProperty) {
     defaultProperty = defaultProperty();
     defaultProperty.context.addEventListener(
       defaultProperty.event,

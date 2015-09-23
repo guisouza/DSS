@@ -3,7 +3,7 @@
 (function(dss) {
   'use strict';
 
-  dss.addDefaultPropery('mouse', function() {
+  dss.addDefaultProperty('mouse', function() {
     return {
       context : document,
       event : 'mousemove',
