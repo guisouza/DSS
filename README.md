@@ -38,16 +38,16 @@ then ...
 ```html
 <!--
 link your css
-NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your css.
+NOTE : use the **dss-enabled** attribute so I can put poison in your css.
 -->
-<link rel="dynamic-stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css" dss-enabled />
 ```
 **or**
 ```html
 <!--
 NOTE : use the **dynamic-stylesheet** type attribute so I can put poison in your css.
 -->
-<style type="dynamic-stylesheet">
+<style type="stylesheet" dss-enabled>
 
 ...
 </style>

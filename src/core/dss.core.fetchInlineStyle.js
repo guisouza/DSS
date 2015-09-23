@@ -4,12 +4,12 @@
 'use strict';
 
 	dss.core.fetchInlineStyle = function(){
-		var inlineStyles = document.querySelectorAll('style[type="dynamic-stylesheet"]');
+	    var inlineStyles = document.querySelectorAll('style[dss-enabled]');
 		[].forEach.call(inlineStyles,function(style){
 			dss.core.parseInlineStyleSheets(style.textContent);
 
 			var newStyle = document.createElement("style");
-			newStyle.setAttribute('rel','inline-stylesheet');
+			newStyle.setAttribute('dss-enabled', 'true');
 			newStyle.appendChild(document.createTextNode(style.textContent));
 			document.head.appendChild(newStyle);
 		});
