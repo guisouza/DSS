@@ -11,7 +11,7 @@ for dynamic projects
 
 ![Alt text](http://i.imgur.com/tPRotMv.png "DSS")
 
-![Alt text](http://im.ezgif.com/tmp/ezgif-655236192.gif "DSS")
+![Alt text](https://media.giphy.com/media/3oEduWDd4lpTE5yPMk/giphy.gif "DSS")
 
 ***[LIVE DEMO](http://codepen.io/anon/pen/jbrorZ?editors=100 "LIVE DEMO")***
 
