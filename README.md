@@ -45,7 +45,7 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 **or**
 ```html
 <!--
-NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your css.*/
+NOTE : use the **dynamic-stylesheet** type attribute so I can put poison in your css.
 -->
 <style type="dynamic-stylesheet">
 
