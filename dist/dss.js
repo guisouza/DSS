@@ -476,7 +476,7 @@
 	    return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 
-	dss.core.defineMethod('addDefaultPropery',function(nameSpace,defaultProperty){
+	dss.core.defineMethod('addDefaultProperty',function(nameSpace,defaultProperty){
 		defaultProperty = defaultProperty();
 		defaultProperty.context.addEventListener(defaultProperty.event,
 			function dssDefaultPropertyEventHandler(){
@@ -487,7 +487,7 @@
 			});
 	});
 
-	dss.core.defineMethod('addDynamicPropery',function(nameSpace,defaultProperty){
+	dss.core.defineMethod('setDynamicProperty',function(nameSpace,defaultProperty){
 		defaultProperty = defaultProperty();
 		defaultProperty.context.addEventListener(defaultProperty.event,
 			function dssDefaultPropertyEventHandler(){
@@ -530,7 +530,7 @@
 (function(dss){
 'use strict';
 
-	dss.addDefaultPropery('mouse',function(){
+	dss.addDefaultProperty('mouse',function(){
 		return{
 			context : document,
 
@@ -551,7 +551,7 @@
 (function(dss){
 'use strict';
 
-	dss.addDefaultPropery('scroll',function(){
+	dss.addDefaultProperty('scroll',function(){
 		return{
 			context : document,
 
@@ -572,7 +572,7 @@
 (function(dss){
 'use strict';
 
-	dss.addDefaultPropery('window',function(){
+	dss.addDefaultProperty('window',function(){
 		return{
 			context : window,
 

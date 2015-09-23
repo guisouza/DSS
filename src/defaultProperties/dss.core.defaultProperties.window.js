@@ -3,7 +3,7 @@
 (function(dss){
 'use strict';
 
-	dss.addDefaultPropery('window',function(){
+	dss.addDefaultProperty('window',function(){
 		return{
 			context : window,
 

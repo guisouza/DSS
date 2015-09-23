@@ -3,7 +3,7 @@
 (function(dss){
 'use strict';
 
-	dss.addDefaultPropery('scroll',function(){
+	dss.addDefaultProperty('scroll',function(){
 		return{
 			context : document,
 
