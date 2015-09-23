@@ -25,6 +25,11 @@ An DSS example
 
 First things first ...  
 
+```bash
+  bower install dss;
+```
+
+
 ```html
 <!--load the dss-->
 <script src="dss.js"></script>
@@ -40,7 +45,7 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 **or**
 ```html
 <!--
-NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your css.*/
+NOTE : use the **dynamic-stylesheet** type attribute so I can put poison in your css.
 -->
 <style type="dynamic-stylesheet">
 
@@ -72,10 +77,10 @@ dss.setProperty('companyColor','#1616FF')
 dss.setProperty('companyColor','#1616FF')
 ```
 
-**dss.addDynamicProperty**
+**dss.setDynamicProperty**
 ```js
 //will generate mouseX and mouseY property everytime document fires mousemove
-dss.addDefaultPropery('mouse',function(){
+dss.setDynamicProperty('mouse',function(){
   return{
     context : document,
 

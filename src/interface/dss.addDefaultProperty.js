@@ -20,16 +20,16 @@
     );
   });
 
-  dss.core.defineMethod('addDynamicProperty', function(nameSpace, defaultProperty) {
+  dss.core.defineMethod('setDynamicProperty',function(nameSpace,defaultProperty){
     defaultProperty = defaultProperty();
-    defaultProperty.context.addEventListener(
-      defaultProperty.event,
-      function dssDefaultPropertyEventHandler() {
-        var properties = defaultProperty.getter.apply(defaultProperty, arguments);
-        for(var prop in properties) {
-          dss.setProperty(nameSpace + capitalizeFirstLetter(prop), properties[prop]);
+    defaultProperty.context.addEventListener(defaultProperty.event,
+      function dssDefaultPropertyEventHandler(){
+        var properties = defaultProperty.getter.apply(defaultProperty,arguments);
+        for(var prop in properties){
+          dss.setProperty(nameSpace+capitalizeFirstLetter(prop),properties[prop]);
         }
       }
     );
   });
+
 })(this.dss);
