@@ -56,10 +56,13 @@ NOTE : use the **dynamic-stylesheet** type attribute so I can put poison in your
 .box{
 	width: 50px;
 	height: 50px;
-	background: ||companyColor:red||;
+	background: red;
+	background-dss: companyColor;
 	position: absolute;
-	top: ||mouseY-25||px;
-	left: ||mouseX-25||px;
+	top: 10px;
+	top-dss: mouseY-25;
+	left: 10px;
+	left-dss: mouseX-25;
 }
 ```
 The **mouseY** and **mouseX** identifiers will automatically receive the mouse position on the screen, every time it changes. 

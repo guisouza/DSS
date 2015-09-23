@@ -226,15 +226,15 @@
 'use strict';
 
 	dss.core.findDynamics = function(selector,rules){
-		var pattern = /(.*):.*\|\|.*\|\|.*;/gmi;
-		var match;    
-		var dynamics = [];
+	    var pattern = /(.*)-dss:.*;/gmi;
+	    var match;
+	    var dynamics = [];
 
-		while (!!(match = pattern.exec(rules))) {
-			dynamics.push(match[0]);
-		}
+	    while (!!(match = pattern.exec(rules))) {
+	        dynamics.push(match[0]);
+	    }
 
-		dss.core.changeDynamics(selector,dynamics);
+	    dss.core.changeDynamics(selector, dynamics);
 	};
 
 })(this.dss);
@@ -263,33 +263,29 @@
 		}
 	}
 
-	function _parseFields(fullValue){
-		var fields = fullValue.replace(/(\|\|[^\|]*\|\|)/gmi,function(value){
-		var rawField = value.replace(/\|/gmi,'').split(':');
+	function _parseFields(fullValue) {
 
-			if (dss.core.dynamics)
-				if (dss.core.dynamics[rawField[0]])
-					return dss.core.dynamics[rawField[0]];
+	    if (dss.core.dynamics)
+	        if (dss.core.dynamics[fullValue])
+	            return dss.core.dynamics[fullValue];
 
-			if (_parse(rawField[0]) !== false)
-				return _parse(rawField[0]);
-			
-			return rawField[1] || false;
+	    if (_parse(fullValue) !== false)
+	        return _parse(fullValue);
 
-		});
-		return fields;
+	    return fullValue || false;
+
 	}
 
 
-	dss.core.findMatch = function(porpertyValue){
+	dss.core.findMatch = function (porpertyValue) {
 
 
-		var valuePattern = /\:(.*\|\|.*\|\|.*);/gmi;
-		var propertyPattern = /([^:]*):.*;/gmi;
-		var property = propertyPattern.exec(porpertyValue)[1].trim();
-		var fullValue = valuePattern.exec(porpertyValue)[1];
+	    var valuePattern = /\:(.*);/gmi;
+	    var propertyPattern = /([^:]*)-dss:.*;/gmi;
+	    var property = propertyPattern.exec(porpertyValue)[1].trim();
+	    var fullValue = valuePattern.exec(porpertyValue)[1];
 
-		return [property,_parseFields(fullValue)];
+	    return [property, _parseFields(fullValue)];
 
 	};
 
