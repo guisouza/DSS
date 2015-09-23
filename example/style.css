@@ -1,8 +1,11 @@
-.box{
-	background: ||companyColor:red||;
-	width: 50px;
-	height: 50px;
-	position: absolute;
-	top: ||mouseY-25||px;
-	left: ||mouseX-25||px;
+.box {
+    background: red;
+    background-dss: companyColor;
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 10px;
+    top-dss: mouseY-25;
+    left: 10px;
+    left-dss: mouseX-25;
 }

@@ -4,7 +4,7 @@
 'use strict';
 
 	dss.core.fetchExternalStyleSheets = function(){
-		var stylesheets = document.querySelectorAll('link[rel="dynamic-stylesheet"]');
+		var stylesheets = document.querySelectorAll('link[dss-enabled]');
 		var qStylesheets = stylesheets.length;
 		var loadedStylesheets = 0;
 		if (qStylesheets === 0){

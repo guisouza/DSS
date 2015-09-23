@@ -165,7 +165,7 @@
 'use strict';
 
 	dss.core.fetchExternalStyleSheets = function(){
-		var stylesheets = document.querySelectorAll('link[rel="dynamic-stylesheet"]');
+		var stylesheets = document.querySelectorAll('link[dss-enabled]');
 		var qStylesheets = stylesheets.length;
 		var loadedStylesheets = 0;
 		if (qStylesheets === 0){
@@ -194,12 +194,12 @@
 'use strict';
 
 	dss.core.fetchInlineStyle = function(){
-		var inlineStyles = document.querySelectorAll('style[type="dynamic-stylesheet"]');
+	    var inlineStyles = document.querySelectorAll('style[dss-enabled]');
 		[].forEach.call(inlineStyles,function(style){
 			dss.core.parseInlineStyleSheets(style.textContent);
 
 			var newStyle = document.createElement("style");
-			newStyle.setAttribute('rel','inline-stylesheet');
+			newStyle.setAttribute('dss-enabled', 'true');
 			newStyle.appendChild(document.createTextNode(style.textContent));
 			document.head.appendChild(newStyle);
 		});
@@ -226,15 +226,15 @@
 'use strict';
 
 	dss.core.findDynamics = function(selector,rules){
-		var pattern = /(.*):.*\|\|.*\|\|.*;/gmi;
-		var match;    
-		var dynamics = [];
+	    var pattern = /(.*)-dss:.*;/gmi;
+	    var match;
+	    var dynamics = [];
 
-		while (!!(match = pattern.exec(rules))) {
-			dynamics.push(match[0]);
-		}
+	    while (!!(match = pattern.exec(rules))) {
+	        dynamics.push(match[0]);
+	    }
 
-		dss.core.changeDynamics(selector,dynamics);
+	    dss.core.changeDynamics(selector, dynamics);
 	};
 
 })(this.dss);
@@ -263,33 +263,29 @@
 		}
 	}
 
-	function _parseFields(fullValue){
-		var fields = fullValue.replace(/(\|\|[^\|]*\|\|)/gmi,function(value){
-		var rawField = value.replace(/\|/gmi,'').split(':');
+	function _parseFields(fullValue) {
 
-			if (dss.core.dynamics)
-				if (dss.core.dynamics[rawField[0]])
-					return dss.core.dynamics[rawField[0]];
+	    if (dss.core.dynamics)
+	        if (dss.core.dynamics[fullValue])
+	            return dss.core.dynamics[fullValue];
 
-			if (_parse(rawField[0]) !== false)
-				return _parse(rawField[0]);
-			
-			return rawField[1] || false;
+	    if (_parse(fullValue) !== false)
+	        return _parse(fullValue);
 
-		});
-		return fields;
+	    return fullValue || false;
+
 	}
 
 
-	dss.core.findMatch = function(porpertyValue){
+	dss.core.findMatch = function (porpertyValue) {
 
 
-		var valuePattern = /\:(.*\|\|.*\|\|.*);/gmi;
-		var propertyPattern = /([^:]*):.*;/gmi;
-		var property = propertyPattern.exec(porpertyValue)[1].trim();
-		var fullValue = valuePattern.exec(porpertyValue)[1];
+	    var valuePattern = /\:(.*);/gmi;
+	    var propertyPattern = /([^:]*)-dss:.*;/gmi;
+	    var property = propertyPattern.exec(porpertyValue)[1].trim();
+	    var fullValue = valuePattern.exec(porpertyValue)[1];
 
-		return [property,_parseFields(fullValue)];
+	    return [property, _parseFields(fullValue)];
 
 	};
 
