@@ -388,9 +388,10 @@
 'use strict';
 
 	dss.core.parseRule = function(rule){
-		var pattern = /(.*){([^}]*)}/gmi;
-		var x = pattern.exec(rule);
-		dss.core.findDynamics(x[1],x[2]);
+        var pattern = /(.*){([^}]*)}/gmi;
+        var x = pattern.exec(rule);
+        dss.core.findDynamics(x[1],x[2]);
+        // console.log(rule);
 	};
 
 })(this.dss);
@@ -401,13 +402,16 @@
 'use strict';
 
 	dss.core.parseStyleSheets = function(sheet,path){
-		var style = document.createElement("link");
+		var style = document.createElement('link');
 		style.setAttribute('rel','stylesheet');
 		style.setAttribute('href',path);
+		style.setAttribute('type','text/css');
 		document.head.appendChild(style);
-		var sheetMatches = sheet.match(/.*{[^}]*}/gmi);
+		var sheetMatches = sheet
+			.replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:([\s;])+\/\/(?:.*)$)/gm, '')
+			.match(/.*{[^}]*}/gmi);
 		if (sheetMatches !== null)
-			sheet.match(/.*{[^}]*}/gmi).forEach(dss.core.parseRule);
+			sheetMatches.forEach(dss.core.parseRule);
 	};
 
 })(this.dss);
