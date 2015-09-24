@@ -1,6 +1,6 @@
 {
   "name": "dss",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/guisouza/dss",
   "description": "DSS - Dynamic Style Sheets",
   "main": "dist/dss.min.js",
@@ -12,7 +12,7 @@
   "authors": [
     "Guilherme (coder) de Souza"
   ],
-  "license": "MIT",
+  "license": "beerware",
   "ignore": [
     "**/.*",
     "node_modules",
