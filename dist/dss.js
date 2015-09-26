@@ -309,7 +309,8 @@
 		var flattedProperties = {};
 		properties.forEach(function(property){
 			var propertyValue = property.match(/[^\;]*/gmi)[0].split(':');
-			flattedProperties[propertyValue[0].trim()] = propertyValue[1].trim();
+			console.log(propertyValue);
+			flattedProperties[propertyValue[0].trim()] = propertyValue.splice(1).join('').trim();
 		});
 
 		return flattedProperties;
@@ -481,6 +482,12 @@
 
 	dss.core.defineMethod('addDefaultProperty',function(nameSpace,defaultProperty){
 		defaultProperty = defaultProperty();
+		if (defaultProperty.default){
+			var defaults = defaultProperty.default();
+			for(var prop in defaults){
+					dss.setProperty(nameSpace+capitalizeFirstLetter(prop),defaults[prop]);
+			}
+		}
 		defaultProperty.context.addEventListener(defaultProperty.event,
 			function dssDefaultPropertyEventHandler(){
 				var properties = defaultProperty.getter.apply(defaultProperty,arguments);
@@ -584,11 +591,14 @@
 			getter : function(e){
 				return {
 					width : window.innerWidth,
-					height : window.innerHeight,
+					height : window.innerHeight
 				};
 			},
-			start : function(){
-				
+			default : function(){
+				return {
+					width : window.innerWidth,
+					height : window.innerHeight
+				};
 			}
 		};
 	});

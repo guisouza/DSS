@@ -9,6 +9,12 @@
 
 	dss.core.defineMethod('addDefaultProperty',function(nameSpace,defaultProperty){
 		defaultProperty = defaultProperty();
+		if (defaultProperty.default){
+			var defaults = defaultProperty.default();
+			for(var prop in defaults){
+					dss.setProperty(nameSpace+capitalizeFirstLetter(prop),defaults[prop]);
+			}
+		}
 		defaultProperty.context.addEventListener(defaultProperty.event,
 			function dssDefaultPropertyEventHandler(){
 				var properties = defaultProperty.getter.apply(defaultProperty,arguments);

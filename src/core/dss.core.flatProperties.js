@@ -9,7 +9,8 @@
 		var flattedProperties = {};
 		properties.forEach(function(property){
 			var propertyValue = property.match(/[^\;]*/gmi)[0].split(':');
-			flattedProperties[propertyValue[0].trim()] = propertyValue[1].trim();
+			console.log(propertyValue);
+			flattedProperties[propertyValue[0].trim()] = propertyValue.splice(1).join('').trim();
 		});
 
 		return flattedProperties;

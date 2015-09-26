@@ -12,11 +12,14 @@
 			getter : function(e){
 				return {
 					width : window.innerWidth,
-					height : window.innerHeight,
+					height : window.innerHeight
 				};
 			},
-			start : function(){
-				
+			default : function(){
+				return {
+					width : window.innerWidth,
+					height : window.innerHeight
+				};
 			}
 		};
 	});
