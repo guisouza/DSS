@@ -14,6 +14,9 @@ for dynamic projects
 ![Alt text](https://media.giphy.com/media/3oEduWDd4lpTE5yPMk/giphy.gif "DSS")
 
 ***[LIVE DEMO](http://codepen.io/anon/pen/jbrorZ?editors=100 "LIVE DEMO")***
+***[LIVE DEMO (Parallax)](http://codepen.io/anon/pen/avBaKV?editors=100 "LIVE DEMO (Parallax)")***
+
+
 
 
 # Dynamic Style Sheets
