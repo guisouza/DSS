@@ -110,6 +110,13 @@ dss.setProperty('companyColor','#1616FF')
  }
 ```
 
+**dss.if**
+```css
+/*if the scrollX is greater than 200 so opacity will be 1 else will be 0*/
+ header{
+  opacity : ||if(scrollX > 200)(1)(0)||;
+ }
+```
 
 
 # Javascript API
