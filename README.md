@@ -106,7 +106,7 @@ dss.setProperty('companyColor','#1616FF')
 ```css
 /*return a positive number or 0, opacity will never be less than 0*/
  header{
-  opacity : ||pon(-200+scrollX)||;
+  opacity : ||dss.pon(-200+scrollX)||;
  }
 ```
 
@@ -114,7 +114,7 @@ dss.setProperty('companyColor','#1616FF')
 ```css
 /*if the scrollX is greater than 200 so opacity will be 1 else will be 0*/
  header{
-  opacity : ||if(scrollX > 200)(1)(0)||;
+  opacity : ||dss.if(scrollX > 200)(1)(0)||;
  }
 ```
 
