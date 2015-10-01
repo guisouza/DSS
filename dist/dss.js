@@ -552,16 +552,6 @@
 	});
 
 })(this.dss);
-//File : src/helpers/dss.intOrZerp.js
-
-(function(dss){
-'use strict';
-
-	dss.core.defineMethod('intOrZero',function(num){
-		return Math.max(0,num);
-	});
-
-})(this.dss);
 //File : src/helpers/dss.limitDown.js
 
 (function(dss){
@@ -589,6 +579,16 @@
 			}
 			return value;
 		};
+	});
+
+})(this.dss);
+//File : src/helpers/dss.pon.js
+
+(function(dss){
+'use strict';
+
+	dss.core.defineMethod('pon',function(num){
+		return Math.max(0,num);
 	});
 
 })(this.dss);

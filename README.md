@@ -75,6 +75,43 @@ The **companyColor** identifier must be set over javascript, but until you do, i
 dss.setProperty('companyColor','#1616FF')
 ```
 
+
+# DSS Helpers
+
+**dss.limitDown**
+```css
+/*margin-top will aways be 200 or more*/
+ header{
+  margin-top : ||dss.limitDown(200)(scrollY)||px;
+ }
+```
+
+**dss.limitUp**
+```css
+/*margin-top will aways be 200 or less*/
+ header{
+  margin-top : ||dss.limitUp(200)(scrollY)||px;
+ }
+```
+
+**dss.bounds**
+```css
+/*margin-top will aways be something between 100 and 200*/
+ header{
+  margin-top : ||dss.bounds(100,200)(scrollY)||px;
+ }
+```
+
+**dss.pon**
+```css
+/*return a positive number or 0, margin-top will never be less than 0*/
+ header{
+  opacity : ||pon(-200+scrollX)||;
+ }
+```
+
+
+
 # Javascript API
 
 **dss.setProperty**
@@ -122,7 +159,7 @@ Automatically receives the window width.
 Automatically receives the window height.
 
 # Version 
-0.0.6 **Alpha**
+0.0.7 **Alpha**
 
 # Building
 ```bash
