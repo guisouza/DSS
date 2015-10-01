@@ -28,6 +28,7 @@ module.exports = function(grunt) {
         'src/dss.js',
         'src/core/*.js',
         'src/interface/*.js',
+        'src/helpers/*.js',
         'src/defaultProperties/*.js'
       ],
       dest: 'dist/dss.js'

@@ -534,6 +534,64 @@
 	});
 
 })(this.dss);
+//File : src/helpers/dss.bounds.js
+
+(function(dss){
+'use strict';
+
+	dss.core.defineMethod('bounds',function(limitDown,limitUp){
+		return function(value){
+			if (value < limitDown){
+				return limitDown;
+			}
+			if (value > limitUp){
+				return limitUp;
+			}
+			return value;
+		};
+	});
+
+})(this.dss);
+//File : src/helpers/dss.intOrZerp.js
+
+(function(dss){
+'use strict';
+
+	dss.core.defineMethod('intOrZero',function(num){
+		return Math.max(0,num);
+	});
+
+})(this.dss);
+//File : src/helpers/dss.limitDown.js
+
+(function(dss){
+'use strict';
+
+	dss.core.defineMethod('limitDown',function(limitDown){
+		return function(value){
+			if (value < limitDown){
+				return limitDown;
+			}
+			return value;
+		};
+	});
+
+})(this.dss);
+//File : src/helpers/dss.limitUp.js
+
+(function(dss){
+'use strict';
+
+	dss.core.defineMethod('limitUp',function(limitUp){
+		return function(value){
+			if (value > limitUp){
+				return limitUp;
+			}
+			return value;
+		};
+	});
+
+})(this.dss);
 //File : src/defaultProperties/dss.defaultProperties.mouse.js
 
 (function(dss){
