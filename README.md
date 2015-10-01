@@ -104,7 +104,7 @@ dss.setProperty('companyColor','#1616FF')
 
 **dss.pon**
 ```css
-/*return a positive number or 0, margin-top will never be less than 0*/
+/*return a positive number or 0, opacity will never be less than 0*/
  header{
   opacity : ||pon(-200+scrollX)||;
  }
