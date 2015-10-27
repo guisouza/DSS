@@ -9,7 +9,7 @@
 		var rules = [];
 		dynamicRule.forEach(function(rule){
 			var propertyValue = dss.core.findMatch(rule);
-			rule = propertyValue[0]+':'+propertyValue[1]+';';
+			rule = rule.property+':'+rule.value+';';
 			rules.push(rule);
 		});
 

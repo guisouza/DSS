@@ -14,7 +14,7 @@ module.exports = function(grunt) {
   // *********************************************
   // jshint
   config.jshint = {};
-  config.jshint.all = ['src/**/*.js'];
+  config.jshint.all = ['src/core/*.js','src/helpers/*.js','src/interface/*.js','src/defaultProperties/*.js'];
   config.jshint.options = {
     jshintrc : true
   }
@@ -25,6 +25,7 @@ module.exports = function(grunt) {
   config.concat = {
     dist: {
       src: [
+        'src/vendor/*.js',
         'src/dss.js',
         'src/core/*.js',
         'src/interface/*.js',
@@ -56,6 +57,18 @@ module.exports = function(grunt) {
         loops: false,
         unused: false
       }
+    }
+  }
+
+
+  // *********************************************
+  // watch
+  config.watch = {};
+  config.watch.scripts = {
+    files: ['src/**/*.js','src/*.js'],
+    tasks: ['default'],
+    options: {
+      spawn: false
     }
   }
 

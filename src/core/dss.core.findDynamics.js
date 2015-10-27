@@ -5,15 +5,11 @@
 'use strict';
 
 	dss.core.findDynamics = function(selector,rules){
-		var pattern = /(.*):.*\|\|.*\|\|.*;/gmi;
-		var match;    
-		var dynamics = [];
+		rules.filter(function(rule){
+			return rule.value.indexOf('||') !== -1;
+		});
 
-		while (!!(match = pattern.exec(rules))) {
-			dynamics.push(match[0]);
-		}
-
-		dss.core.changeDynamics(selector,dynamics);
+		dss.core.changeDynamics(selector,rules);
 	};
 
 })(this.dss);

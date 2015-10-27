@@ -9,11 +9,7 @@
 		style.setAttribute('href',path);
 		style.setAttribute('type','text/css');
 		document.head.appendChild(style);
-		var sheetMatches = sheet
-			.replace(/(?:\/\*(?:[\s\S]*?)\*\/)|(?:([\s;])+\/\/(?:.*)$)/gm, '')
-			.match(/.*{[^}]*}/gmi);
-		if (sheetMatches !== null)
-			sheetMatches.forEach(dss.core.parseRule);
+		css(sheet).stylesheet.rules.forEach(dss.core.parseRule);
 	};
 
 })(this.dss);

@@ -25,14 +25,17 @@
 	function _parseFields(fullValue){
 		var fields = fullValue.replace(/(\|\|[^\|]*\|\|)/gmi,function(value){
 		var rawField = value.replace(/\|/gmi,'').split(':');
-
 			if (dss.core.dynamics)
 				if (dss.core.dynamics[rawField[0]])
 					return dss.core.dynamics[rawField[0]];
 
-			if (_parse(rawField[0]) !== false)
+
+			var parsedValue = _parse(rawField[0]);
+			if (parsedValue !== false && rawField[0] !== parsedValue)
 				return _parse(rawField[0]);
 			
+
+
 			return rawField[1] || false;
 
 		});
@@ -41,14 +44,7 @@
 
 
 	dss.core.findMatch = function(porpertyValue){
-
-
-		var valuePattern = /\:(.*\|\|.*\|\|.*);/gmi;
-		var propertyPattern = /([^:]*):.*;/gmi;
-		var property = propertyPattern.exec(porpertyValue)[1].trim();
-		var fullValue = valuePattern.exec(porpertyValue)[1];
-
-		return [property,_parseFields(fullValue)];
+		return [porpertyValue.property,_parseFields(porpertyValue.value)];
 
 	};
 
