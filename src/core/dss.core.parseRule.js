@@ -4,7 +4,8 @@
 'use strict';
 
 	dss.core.parseRule = function(rule){
-		dss.core.findDynamics(rule.selectors.join(','),rule.declarations);
+		if (rule.selectors)
+			dss.core.findDynamics(rule.selectors.join(','),rule.declarations);
 	};
 
 })(this.dss);
