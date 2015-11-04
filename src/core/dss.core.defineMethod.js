@@ -5,7 +5,7 @@
 
 	dss.core.defineMethod = function(method,action){
 		if (dss[method]){
-			throw 'Method already '+method+'() exists';
+			throw 'Method '+method+'() already exists';
 		}
 		dss[method] = action;
 	};

@@ -597,7 +597,10 @@
   world.dss = function(){ 
 
     return {
-      core : {}
+      core : {
+        myRules : {},
+        refreshValues : {}
+      }
     };
 
   }();
@@ -637,7 +640,7 @@
  		if(xhr.readyState < 4) {
  			return;
  		}
- 		if(xhr.status !== 200) {
+ 		if(xhr.status !== 200 && xhr.status !== 0) {
  			return;
  		}
  		if(xhr.readyState === 4) {
@@ -656,58 +659,6 @@
  };
 })(this.dss);
 
-//File : src/core/dss.core.changeDynamics.js
-
-(function(dss){
-'use strict';
-
-	dss.core.changeDynamics = function(selector,dynamicRule){
-		dss.core.mySheet = '';
-		dss.core.refreshValues.push([selector,dynamicRule]);
-		var rules = [];
-		dynamicRule.forEach(function(rule){
-			var propertyValue = dss.core.findMatch(rule);
-			rule = rule.property+':'+rule.value+';';
-			rules.push(rule);
-		});
-
-		dss.core.putRule(selector,rules);
-		dss.core.refreshDss(dss.core.refreshValues);
-	};
-
-})(this.dss);
-//File : src/core/dss.core.changeDynamicsOnTheGo.js
-
-(function(dss){
-'use strict';
-	
-	dss.core.changeDynamicsOnTheGo = function (selector,dynamicRule){
-		dss.core.rules = [];
-		dynamicRule.forEach(function(rule){
-			var propertyValue = dss.core.findMatch(rule);
-			rule = propertyValue[0]+':'+propertyValue[1]+';';
-			dss.core.rules.push(rule);
-		});
-		dss.core.putRule(selector,dss.core.rules);
-	};
-
-})(this.dss);
-//File : src/core/dss.core.concatProps.js
-
-(function(dss){
-'use strict';
-	dss.core.concatProps = function (props){
-		var concattedProps = '';
-		for (var prop in props){
-			concattedProps+= prop+":"+props[prop]+';';
-		}
-		return concattedProps;
-
-	};
-})(this.dss);
-
-
-
 //File : src/core/dss.core.defineMethod.js
 
 (function(dss){
@@ -715,42 +666,18 @@
 
 	dss.core.defineMethod = function(method,action){
 		if (dss[method]){
-			throw 'Method already '+method+'() exists';
+			throw 'Method '+method+'() already exists';
 		}
 		dss[method] = action;
 	};
 
 })(this.dss);
-//File : src/core/dss.core.extractField.js
-
-(function(dss){
-	'use strict';
-
-	dss.core.extractField = function(stringField,object,index){
-		stringField = stringField.replace(/\}\}/g,'').replace(/\{\{/g,'').trim();
-
-		if (object){
-			var fieldPath = '';
-			if (stringField.indexOf('.') > 0){
-				fieldPath = stringField.split('.');
-				stringField = stringField.replace(fieldPath[0]+'.','');
-				return x.core.extractField(stringField,object[fieldPath[0]]);
-				}else if(stringField.indexOf('][') > 0){
-					fieldPath = stringField.split('][');
-				}else if(stringField.indexOf('[') > 0){
-					fieldPath = stringField.split('[');
-			}else{
-				return object[stringField];
-			}
-		}
-	};
-}(this.dss));
-//File : src/core/dss.core.fetchExternalStyleSheets.js
+//File : src/core/dss.core.fetchStyleSheets.js
 
 (function(dss){
 'use strict';
 
-	dss.core.fetchExternalStyleSheets = function(){
+	dss.core.fetchStyleSheets = function(){
 		var stylesheets = document.querySelectorAll('link[rel="dynamic-stylesheet"]');
 		var qStylesheets = stylesheets.length;
 		var loadedStylesheets = 0;
@@ -764,6 +691,7 @@
 						loadedStylesheets++;
 						if (qStylesheets === loadedStylesheets){
 							dss.core.IS_INITIALIZED = true;
+							dss.core.refreshDss();
 						}
 					}
 				);
@@ -774,49 +702,37 @@
 	};
 
 })(this.dss);
-//File : src/core/dss.core.fetchInlineStyle.js
-
-(function(dss){
-'use strict';
-
-	dss.core.fetchInlineStyle = function(){
-		var inlineStyles = document.querySelectorAll('style[type="dynamic-stylesheet"]');
-		[].forEach.call(inlineStyles,function(style){
-			dss.core.parseInlineStyleSheets(style.textContent);
-
-			var newStyle = document.createElement("style");
-			newStyle.setAttribute('rel','inline-stylesheet');
-			newStyle.appendChild(document.createTextNode(style.textContent));
-			document.head.appendChild(newStyle);
-		});
-
-
-	};
-
-})(this.dss);
-//File : src/core/dss.core.fetchStyleSheets.js
-
-(function(dss){
-'use strict';
-
-	dss.core.fetchStyleSheets = function(){
-		dss.core.fetchExternalStyleSheets();
-		dss.core.fetchInlineStyle();
-	};
-
-})(this.dss);
 //File : src/core/dss.core.findDynamics.js
 
 (function(dss){
-'use strict';
+	'use strict';
 
-	dss.core.findDynamics = function(selector,rules){
-		
-		rules = rules.filter(function(rule){
+	dss.core.findDynamics = function(rules){
+
+
+		var declarations = rules.declarations.filter(function(rule){
 			return rule.value.indexOf('||') !== -1;
+		}).map(function(prop){
+			var obj = {};
+			obj[prop.property] = prop.value;
+			return obj;
 		});
 
-		dss.core.changeDynamics(selector,rules);
+
+		if (declarations.length > 0){
+			dss.core.refreshValues[rules.selectors.join(',')] = declarations;	
+
+			var newObj = {};
+			dss.core.refreshValues[rules.selectors.join(',')].map(function(property){
+
+				Object.keys(property).map(function(prop){
+					newObj[prop] = property[prop];
+				});
+
+			});
+
+			dss.core.refreshValues[rules.selectors.join(',')] = newObj;
+		}
 	};
 
 })(this.dss);
@@ -824,7 +740,7 @@
 //File : src/core/dss.core.findMatch.js
 
 (function(dss){
-'use strict';
+	'use strict';
 
 	function _parse(value){
 		var newValue = value;
@@ -847,27 +763,27 @@
 
 	function _parseFields(fullValue){
 		var fields = fullValue.replace(/(\|\|[^\|]*\|\|)/gmi,function(value){
-		var rawField = value.replace(/\|/gmi,'').split(':');
+			var rawField = value.replace(/\|/gmi,'').split(':');
 			if (dss.core.dynamics)
 				if (dss.core.dynamics[rawField[0]])
 					return dss.core.dynamics[rawField[0]];
 
 
-			var parsedValue = _parse(rawField[0]);
-			if (parsedValue !== false && rawField[0] !== parsedValue)
-				return _parse(rawField[0]);
-			
+				var parsedValue = _parse(rawField[0]);
+				if (parsedValue !== false && rawField[0] !== parsedValue)
+					return _parse(rawField[0]);
+				
 
 
-			return rawField[1] || false;
+				return rawField[1] || false;
 
-		});
+			});
 		return fields;
 	}
 
 
 	dss.core.findMatch = function(porpertyValue){
-		return [porpertyValue.property,_parseFields(porpertyValue.value)];
+		return _parseFields(porpertyValue);
 
 	};
 
@@ -876,56 +792,42 @@
 
 
 
-//File : src/core/dss.core.flatProperties.js
-
-(function(dss){
-'use strict';
-
-	dss.core.flatProperties = function(properties){
-		properties = [].concat.apply([], properties);
-		properties = [].concat.apply([], properties);
-		var flattedProperties = {};
-		properties.forEach(function(property){
-			var propertyValue = property.match(/[^\;]*/gmi)[0].split(':');
-			flattedProperties[propertyValue[0].trim()] = propertyValue.splice(1).join('').trim();
-		});
-
-		return flattedProperties;
-	};
-
-})(this.dss);
-//File : src/core/dss.core.flatRules.js
-
-(function(dss){
-'use strict';
-
-	dss.core.flatRules = function(){
-		var flattedRules = {};
-
-		for(var rule in dss.core.myRules){
-			if (!flattedRules.hasOwnProperty(rule.trim()))
-				flattedRules[rule.trim()] = [];
-			flattedRules[rule.trim()].push(dss.core.myRules[rule]);
-		}
-		for(var _rule in flattedRules){
-			flattedRules[_rule] = dss.core.flatProperties(flattedRules[_rule]);
-		}
-
-		return flattedRules;
-	};
-
-})(this.dss);
 //File : src/core/dss.core.generateCss.js
 
 (function(dss){
-'use strict';
+	'use strict';
 	dss.core.generateCss = function (rules){
-		var generatedCss = '';
-		for (var rule in rules){
-			generatedCss += rule+'{'+dss.core.concatProps(rules[rule])+'}';
-		}
 
-		return generatedCss;
+
+		return Object.keys(rules).map(function(rule){
+
+			if (Object.keys(rules[rule]).length === 1){
+				var key = Object.keys(rules[rule]);
+				return rule+'{'+key+':'+rules[rule][key].value+'}';
+			}
+
+			return rule+'{'+Object.keys(rules[rule]).reduce(function(acc,a,i,fullArr){
+
+				
+				if (i === 1){
+					if(typeof rules[rule][acc] === 'string'){
+						acc = acc+':'+rules[rule][acc]+';';
+					}else{
+						acc = acc+':'+rules[rule][acc].value+';';	
+					}
+					
+					if(typeof rules[rule][a] === 'string'){
+						return acc+a+':'+rules[rule][a]+';';
+					}
+					return acc+a+':'+rules[rule][a].value+';';
+				}
+
+				if(typeof rules[rule][a] === 'string'){
+					return acc+a+':'+rules[rule][a]+';';
+				}
+				return acc+a+':'+rules[rule][a].value+';';
+			})+'}';
+		}).join('');
 
 	};
 })(this.dss);
@@ -935,7 +837,7 @@
 //File : src/core/dss.core.loadStyleSheets.js
 
 (function(dss){
-'use strict';
+	'use strict';
 
 	dss.core.loadStyleSheets = function(path,callback){
 		dss.core.ajax({
@@ -945,29 +847,6 @@
 				callback();
 			}
 		});
-	};
-
-})(this.dss);
-
-//File : src/core/dss.core.parseInlineStyleSheets.js
-
-(function(dss){
-'use strict';
-
-	dss.core.parseInlineStyleSheets = function(sheet){
-		sheet.match(/.*{[^}]*}/gmi).forEach(dss.core.parseRule);
-	};
-
-})(this.dss);
-
-//File : src/core/dss.core.parseRule.js
-
-(function(dss){
-'use strict';
-
-	dss.core.parseRule = function(rule){
-		if (rule.selectors)
-			dss.core.findDynamics(rule.selectors.join(','),rule.declarations);
 	};
 
 })(this.dss);
@@ -983,61 +862,63 @@
 		style.setAttribute('href',path);
 		style.setAttribute('type','text/css');
 		document.head.appendChild(style);
-		css(sheet).stylesheet.rules.forEach(dss.core.parseRule);
+		css(sheet).stylesheet.rules.forEach(dss.core.findDynamics);
+		dss.rawStyleSheet = dss.core.generateCss(dss.core.refreshValues);
+		dss.core.refreshDss();
+		console.log(dss.rawStyleSheet);
+
+		
+
 	};
 
 })(this.dss);
 
-//File : src/core/dss.core.putRule.js
-
-(function(dss){
-'use strict';
-	dss.core.putRule = function (selector,rule){
-		if (!dss.core.myRules)
-			dss.core.myRules = {};
-		if (!dss.core.myRules[selector])
-				dss.core.myRules[selector] = [];
-
-		dss.core.myRules[selector].push(rule);
-	};
-
-})(this.dss);
 //File : src/core/dss.core.refreshDss.js
 
 (function(dss){
 'use strict';
 	
-	dss.core.refreshDss = function (values){
-		dss.core.mySheet = '';
-		dss.core.myRules = {};
-		values.forEach(function(value){
-			dss.core.changeDynamicsOnTheGo(value[0],value[1]);
+	dss.core.refreshDss = function (property){
+		Object.keys(dss.core.refreshValues).map(function(selector){
+			Object.keys(dss.core.refreshValues[selector]).map(function(_property){
+				if (typeof dss.core.refreshValues[selector][_property] === 'string'){
+					 dss.core.refreshValues[selector][_property] = {
+					 	originalValue : dss.core.refreshValues[selector][_property],
+					 	value : dss.core.findMatch(dss.core.refreshValues[selector][_property])
+					 };
+				}else{
+					if (dss.core.refreshValues[selector][_property].originalValue.indexOf(property) !== -1 ||property === undefined){
+						dss.core.refreshValues[selector][_property].value = dss.core.findMatch(dss.core.refreshValues[selector][_property].originalValue);
+					}
+				}
+			});
 		});
-		dss.core.render(values);
+
+		dss.core.render();	
 	};
-
-})(this.dss);
-//File : src/core/dss.core.refreshValues.js
-
-(function(dss){
-'use strict';
-
-	dss.core.refreshValues = [];
 
 })(this.dss);
 //File : src/core/dss.core.render.js
 
 (function(dss){
-'use strict';
+	'use strict';
 	dss.core.render = function (){
 		var styles = document.querySelectorAll('[rel="dss-generated-stylesheet"]');
-		[].forEach.call(styles,function(style){
-			document.head.removeChild(style);
-		});
-		var style = document.createElement("style");
-		style.setAttribute('rel','dss-generated-stylesheet');
-		style.appendChild(document.createTextNode(dss.core.generateCss(dss.core.flatRules())));
-		document.head.appendChild(style);
+
+		if (styles[0]){
+			var generatedDSS = dss.core.generateCss(dss.core.refreshValues);
+			if (dss.lastDSSSheet !== generatedDSS){
+				dss.lastDSSSheet = generatedDSS;
+				styles[0].innerHTML = generatedDSS;
+			}
+			
+		}else{
+			var style = document.createElement("style");
+			style.setAttribute('rel','dss-generated-stylesheet');
+			dss.lastDSSSheet = dss.core.generateCss(dss.core.refreshValues);
+			style.appendChild(document.createTextNode(dss.lastDSSSheet));
+			document.head.appendChild(style);			
+		}
 	};
 })(this.dss);
 
@@ -1098,11 +979,16 @@
 'use strict';
 
 	dss.core.defineMethod('setProperty',function(property,value){
+		var shouldRender = false;
 		if (!dss.core.dynamics)
 			dss.core.dynamics = {};
-		dss.core.dynamics[property] = value;
-		if (dss.core.IS_INITIALIZED){
-			dss.core.refreshDss(dss.core.refreshValues);
+		if (dss.core.dynamics[property] !== value){
+			dss.core.dynamics[property] = value;
+			shouldRender = true;
+		}
+
+		if (dss.core.IS_INITIALIZED && shouldRender){
+			dss.core.refreshDss(property);
 		}
 	});
 

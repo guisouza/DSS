@@ -80,6 +80,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['jasmine']);
 
-  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify','watch']);
 
 };

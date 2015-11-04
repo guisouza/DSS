@@ -9,7 +9,13 @@
 		style.setAttribute('href',path);
 		style.setAttribute('type','text/css');
 		document.head.appendChild(style);
-		css(sheet).stylesheet.rules.forEach(dss.core.parseRule);
+		css(sheet).stylesheet.rules.forEach(dss.core.findDynamics);
+		dss.rawStyleSheet = dss.core.generateCss(dss.core.refreshValues);
+		dss.core.refreshDss();
+		console.log(dss.rawStyleSheet);
+
+		
+
 	};
 
 })(this.dss);

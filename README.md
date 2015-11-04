@@ -47,26 +47,6 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 -->
 <link rel="dynamic-stylesheet" href="style.css">
 ```
-**or**
-```html
-<!--
-NOTE : use the **dynamic-stylesheet** type attribute so I can put poison in your css.
--->
-<style type="dynamic-stylesheet">
-
-...
-</style>
-```
-```css
-.box{
-	width: 50px;
-	height: 50px;
-	background: ||companyColor:red||;
-	position: absolute;
-	top: ||mouseY-25||px;
-	left: ||mouseX-25||px;
-}
-```
 The **mouseY** and **mouseX** identifiers will automatically receive the mouse position on the screen, every time it changes. 
 
 The **companyColor** identifier must be set over javascript, but until you do, it will receive the default value **red**.
@@ -166,7 +146,7 @@ Automatically receives the window width.
 Automatically receives the window height.
 
 # Version 
-0.0.12 **Alpha**
+0.0.13 **Alpha**
 
 # Building
 ```bash

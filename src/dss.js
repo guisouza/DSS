@@ -11,7 +11,10 @@
   world.dss = function(){ 
 
     return {
-      core : {}
+      core : {
+        myRules : {},
+        refreshValues : {}
+      }
     };
 
   }();

@@ -4,8 +4,27 @@
 'use strict';
 
 	dss.core.fetchStyleSheets = function(){
-		dss.core.fetchExternalStyleSheets();
-		dss.core.fetchInlineStyle();
+		var stylesheets = document.querySelectorAll('link[rel="dynamic-stylesheet"]');
+		var qStylesheets = stylesheets.length;
+		var loadedStylesheets = 0;
+		if (qStylesheets === 0){
+			dss.core.IS_INITIALIZED = true;
+		}
+		return [].forEach.call(stylesheets, function(stylesheet) {
+			if (stylesheet.attributes.href){
+				return dss.core.loadStyleSheets(stylesheet.attributes.href.value,
+					function styleSheetLoaded(){
+						loadedStylesheets++;
+						if (qStylesheets === loadedStylesheets){
+							dss.core.IS_INITIALIZED = true;
+							dss.core.refreshDss();
+						}
+					}
+				);
+			}
+			
+			qStylesheets--;
+		});
 	};
 
 })(this.dss);
