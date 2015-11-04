@@ -865,7 +865,6 @@
 		css(sheet).stylesheet.rules.forEach(dss.core.findDynamics);
 		dss.rawStyleSheet = dss.core.generateCss(dss.core.refreshValues);
 		dss.core.refreshDss();
-		console.log(dss.rawStyleSheet);
 
 		
 
