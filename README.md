@@ -146,7 +146,7 @@ Automatically receives the window width.
 Automatically receives the window height.
 
 # Version 
-0.0.13 **Alpha**
+0.0.14 **Alpha**
 
 # Building
 ```bash
