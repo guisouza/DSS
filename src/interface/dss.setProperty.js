@@ -4,11 +4,16 @@
 'use strict';
 
 	dss.core.defineMethod('setProperty',function(property,value){
+		var shouldRender = false;
 		if (!dss.core.dynamics)
 			dss.core.dynamics = {};
-		dss.core.dynamics[property] = value;
-		if (dss.core.IS_INITIALIZED){
-			dss.core.refreshDss(dss.core.refreshValues);
+		if (dss.core.dynamics[property] !== value){
+			dss.core.dynamics[property] = value;
+			shouldRender = true;
+		}
+
+		if (dss.core.IS_INITIALIZED && shouldRender){
+			dss.core.refreshDss(property);
 		}
 	});
 

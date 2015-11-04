@@ -1,7 +1,7 @@
 //File : src/core/dss.core.loadStyleSheets.js
 
 (function(dss){
-'use strict';
+	'use strict';
 
 	dss.core.loadStyleSheets = function(path,callback){
 		dss.core.ajax({

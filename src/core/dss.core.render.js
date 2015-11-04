@@ -1,16 +1,24 @@
 //File : src/core/dss.core.render.js
 
 (function(dss){
-'use strict';
+	'use strict';
 	dss.core.render = function (){
 		var styles = document.querySelectorAll('[rel="dss-generated-stylesheet"]');
-		[].forEach.call(styles,function(style){
-			document.head.removeChild(style);
-		});
-		var style = document.createElement("style");
-		style.setAttribute('rel','dss-generated-stylesheet');
-		style.appendChild(document.createTextNode(dss.core.generateCss(dss.core.flatRules())));
-		document.head.appendChild(style);
+
+		if (styles[0]){
+			var generatedDSS = dss.core.generateCss(dss.core.refreshValues);
+			if (dss.lastDSSSheet !== generatedDSS){
+				dss.lastDSSSheet = generatedDSS;
+				styles[0].innerHTML = generatedDSS;
+			}
+			
+		}else{
+			var style = document.createElement("style");
+			style.setAttribute('rel','dss-generated-stylesheet');
+			dss.lastDSSSheet = dss.core.generateCss(dss.core.refreshValues);
+			style.appendChild(document.createTextNode(dss.lastDSSSheet));
+			document.head.appendChild(style);			
+		}
 	};
 })(this.dss);
 
