@@ -47,6 +47,18 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 -->
 <link rel="dynamic-stylesheet" href="style.css">
 ```
+
+```css
+.box{
+	width: 50px;
+	height: 50px;
+	background: ||companyColor:red||;
+	position: absolute;
+	top: ||mouseY-25||px;
+	left: ||mouseX-25||px;
+}
+```
+
 The **mouseY** and **mouseX** identifiers will automatically receive the mouse position on the screen, every time it changes. 
 
 The **companyColor** identifier must be set over javascript, but until you do, it will receive the default value **red**.
