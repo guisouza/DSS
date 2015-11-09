@@ -1,9 +1,9 @@
-//File : src/helpers/dss.limitUp.js
+//File : src/helpers/dss.ceil.js
 
 (function(dss){
 'use strict';
 
-	dss.core.defineMethod('limitUp',function(limitUp){
+	dss.core.defineMethod('ceil',function(limitUp){
 		return function(value){
 			if (value > limitUp){
 				return limitUp;

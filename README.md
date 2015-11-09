@@ -24,14 +24,11 @@ for dynamic projects
 # Dynamic Style Sheets
 
 Dynamic Style Sheets gives you the ability to dynamically set values to your css properties on the go.
-No more inline binding.
 
-An DSS example
-
-First things first ...  
+***First things first ...***
 
 ```bash
-	bower install dss;
+bower install dss;
 ```
 
 
@@ -39,7 +36,9 @@ First things first ...
 <!--load the dss-->
 <script src="dss.js"></script>
 ```
-then ... 
+***then ...***
+
+
 ```html
 <!--
 link your css
@@ -48,7 +47,12 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 <link rel="dynamic-stylesheet" href="style.css">
 ```
 
+***DSS loaded!***
+***Now you can put DSS declarations in your sheet in three different flavours:***
+
+##### - Double pipe
 ```css
+
 .box{
 	width: 50px;
 	height: 50px;
@@ -56,6 +60,32 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 	position: absolute;
 	top: ||mouseY-25||px;
 	left: ||mouseX-25||px;
+}
+```
+
+
+##### - Pseudo dss selector
+```css
+.box:dss{
+	width: 50px;
+	height: 50px;
+	background: companyColor:red;
+	position: absolute;
+	top: mouseY-25;
+	left: mouseX-25;
+}
+```
+
+
+##### - "dss-" preffix property
+```css
+.box{
+	width: 50px;
+	height: 50px;
+	background-dss: companyColor:red;
+	position: absolute;
+	dss-top: mouseY-25;
+	dss-left: mouseX-25;
 }
 ```
 
@@ -67,10 +97,31 @@ The **companyColor** identifier must be set over javascript, but until you do, i
 dss.setProperty('companyColor','#1616FF')
 ```
 
+# Default Auto-Binded Properties
+
+##### **mouseX**
+Automatically receives the x position of the cursor.
+
+##### **mouseY**
+Automatically receives the y position of the cursor.
+
+##### **scrollX**
+Automatically receives the x position of the window scroll.
+
+##### **scrollY**
+Automatically receives the y position of the window scroll.
+
+##### **windowWidth**
+Automatically receives the window width.
+
+##### **windowHeight**
+Automatically receives the window height.
+
+
 
 # DSS Helpers
 
-**dss.limitDown**
+**dss.floor**
 ```css
 /*margin-top will aways be 200 or more*/
  header{
@@ -78,7 +129,7 @@ dss.setProperty('companyColor','#1616FF')
  }
 ```
 
-**dss.limitUp**
+**dss.ceil**
 ```css
 /*margin-top will aways be 200 or less*/
  header{
@@ -113,6 +164,8 @@ dss.setProperty('companyColor','#1616FF')
 
 # Javascript API
 
+## Managing properties
+
 **dss.setProperty**
 ```js	
 dss.setProperty('companyColor','#1616FF')
@@ -137,28 +190,24 @@ dss.setDynamicProperty('mouse',function(){
 });
 ```
 
-# Default Auto-Binded Properties
+## Events
 
-##### **mouseX**
-Automatically receives the x position of the cursor.
+**init**
+```javascript
+dss.on('init',function(){
+console.log('DSS initialized with its first render Cycle =D ')
+})
+```
 
-##### **mouseY**
-Automatically receives the y position of the cursor.
-
-##### **scrollX**
-Automatically receives the x position of the window scroll.
-
-##### **scrollY**
-Automatically receives the y position of the window scroll.
-
-##### **windowWidth**
-Automatically receives the window width.
-
-##### **windowHeight**
-Automatically receives the window height.
+**render**
+```javascript
+dss.on('render',function(){
+console.log('there is a render cycle =D')
+})
+```
 
 # Version 
-0.0.14 **Alpha**
+0.1.0 **Beta**
 
 # Building
 ```bash
