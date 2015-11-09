@@ -18,6 +18,7 @@
 						if (qStylesheets === loadedStylesheets){
 							dss.core.IS_INITIALIZED = true;
 							dss.core.refreshDss();
+							dss.trigger('init');
 						}
 					}
 				);

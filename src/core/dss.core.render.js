@@ -19,6 +19,7 @@
 			style.appendChild(document.createTextNode(dss.lastDSSSheet));
 			document.head.appendChild(style);			
 		}
+		dss.trigger('render');
 	};
 })(this.dss);
 

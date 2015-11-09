@@ -600,7 +600,8 @@
       core : {
         myRules : {},
         refreshValues : {},
-        nonDynamicRules : {}
+        nonDynamicRules : {},
+        events : {}
       }
     };
 
@@ -693,6 +694,7 @@
 						if (qStylesheets === loadedStylesheets){
 							dss.core.IS_INITIALIZED = true;
 							dss.core.refreshDss();
+							dss.trigger('init');
 						}
 					}
 				);
@@ -936,6 +938,7 @@
 			style.appendChild(document.createTextNode(dss.lastDSSSheet));
 			document.head.appendChild(style);			
 		}
+		dss.trigger('render');
 	};
 })(this.dss);
 
@@ -990,6 +993,18 @@
 	document.addEventListener('DOMContentLoaded', dss.init, false);
 
 })(this.dss);
+//File : src/interface/dss.on.js
+
+(function(dss){
+'use strict';
+	
+	dss.core.defineMethod('on',function(label,event){
+		if (!dss.core.events[label])
+			dss.core.events[label] = [];
+		dss.core.events[label].push(event);
+	});
+
+})(this.dss);
 //File : src/interface/dss.setProperty.js
 
 (function(dss){
@@ -1007,6 +1022,19 @@
 		if (dss.core.IS_INITIALIZED && shouldRender){
 			dss.core.refreshDss(property);
 		}
+	});
+
+})(this.dss);
+//File : src/interface/dss.trigger.js
+
+(function(dss){
+'use strict';
+	
+	dss.core.defineMethod('trigger',function(label){
+		if (dss.core.events[label])
+			dss.core.events[label].map(function(event){
+				event();
+			});
 	});
 
 })(this.dss);

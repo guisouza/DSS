@@ -14,7 +14,8 @@
       core : {
         myRules : {},
         refreshValues : {},
-        nonDynamicRules : {}
+        nonDynamicRules : {},
+        events : {}
       }
     };
 
