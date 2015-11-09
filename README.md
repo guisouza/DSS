@@ -80,7 +80,7 @@ NOTE : use the **dynamic-stylesheet** rel attribute so I can put poison in your 
 .box{
 	width: 50px;
 	height: 50px;
-	background-dss: companyColor:red;
+	dss-background: companyColor:red;
 	position: absolute;
 	dss-top: mouseY-25;
 	dss-left: mouseX-25;
