@@ -15,7 +15,8 @@
         myRules : {},
         refreshValues : {},
         nonDynamicRules : {},
-        events : {}
+        events : {},
+        dynamics : {}
       }
     };
 

@@ -601,7 +601,8 @@
         myRules : {},
         refreshValues : {},
         nonDynamicRules : {},
-        events : {}
+        events : {},
+        dynamics : {}
       }
     };
 
@@ -1007,21 +1008,39 @@
 })(this.dss);
 //File : src/interface/dss.setProperty.js
 
+
 (function(dss){
 'use strict';
 
-	dss.core.defineMethod('setProperty',function(property,value){
+	dss.core.defineMethod('setProperty',function(propertyOrObject,value){
 		var shouldRender = false;
-		if (!dss.core.dynamics)
-			dss.core.dynamics = {};
-		if (dss.core.dynamics[property] !== value){
-			dss.core.dynamics[property] = value;
-			shouldRender = true;
+
+		if (typeof propertyOrObject === 'object'){
+			var properties = Object.keys(propertyOrObject);
+			var refreshedProperties = [];
+			properties.map(function(property){
+				if (dss.core.dynamics[property] !== propertyOrObject[property]){
+					dss.core.dynamics[property] = propertyOrObject[property];
+					refreshedProperties.push(property);
+					shouldRender = true;
+				}
+			});
+
+			if (dss.core.IS_INITIALIZED && shouldRender){
+				dss.core.refreshDss(refreshedProperties);
+			}
+
 		}
 
-		if (dss.core.IS_INITIALIZED && shouldRender){
-			dss.core.refreshDss(property);
-		}
+		if (typeof propertyOrObject === 'string')
+			if (dss.core.dynamics[propertyOrObject] !== value){
+				dss.core.dynamics[propertyOrObject] = value;
+				shouldRender = true;
+
+				if (dss.core.IS_INITIALIZED && shouldRender){
+					dss.core.refreshDss(propertyOrObject);
+				}
+			}
 	});
 
 })(this.dss);
@@ -1056,6 +1075,36 @@
 	});
 
 })(this.dss);
+//File : src/helpers/dss.ceil.js
+
+(function(dss){
+'use strict';
+
+	dss.core.defineMethod('ceil',function(limitUp){
+		return function(value){
+			if (value > limitUp){
+				return limitUp;
+			}
+			return value;
+		};
+	});
+
+})(this.dss);
+//File : src/helpers/dss.floor.js
+
+(function(dss){
+'use strict';
+
+	dss.core.defineMethod('floor',function(limitDown){
+		return function(value){
+			if (value < limitDown){
+				return limitDown;
+			}
+			return value;
+		};
+	});
+
+})(this.dss);
 //File : src/helpers/dss.if.js
 
 (function(dss){
@@ -1068,36 +1117,6 @@
 					return yeap;
 				return nope;
 			};
-		};
-	});
-
-})(this.dss);
-//File : src/helpers/dss.limitDown.js
-
-(function(dss){
-'use strict';
-
-	dss.core.defineMethod('limitDown',function(limitDown){
-		return function(value){
-			if (value < limitDown){
-				return limitDown;
-			}
-			return value;
-		};
-	});
-
-})(this.dss);
-//File : src/helpers/dss.limitUp.js
-
-(function(dss){
-'use strict';
-
-	dss.core.defineMethod('limitUp',function(limitUp){
-		return function(value){
-			if (value > limitUp){
-				return limitUp;
-			}
-			return value;
 		};
 	});
 

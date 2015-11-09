@@ -3,13 +3,17 @@
   margin: 0px;
 }
 
+body{
+	background: ||a||;
+}
+
 .box{
 	width : 50px;
 	height: 50px;
 	position: absolute;
-  dss-left: mouseX-25;
-  top: ||mouseY-25||;
-  z-index: 999;
+	dss-left: mouseX-25;
+	top: ||mouseY-25||;
+	z-index: 999;
 }
 
 .box:dss{
