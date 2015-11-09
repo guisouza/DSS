@@ -167,6 +167,13 @@ Automatically receives the window height.
 **dss.setProperty**
 ```js	
 dss.setProperty('companyColor','#1616FF')
+
+//OR
+
+dss.setProperty({
+	companyColor:'#1616FF'
+})
+
 ```
 
 **dss.setDynamicProperty**
