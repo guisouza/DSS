@@ -13,7 +13,8 @@
     return {
       core : {
         myRules : {},
-        refreshValues : {}
+        refreshValues : {},
+        nonDynamicRules : {}
       }
     };
 

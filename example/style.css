@@ -1,46 +1,17 @@
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
 .box{
-	background: ||companyColor:red||;
 	width : 50px;
 	height: 50px;
 	position: absolute;
-	left: ||mouseX-25||px;
-	top: ||dss.bounds(0,windowHeight-50)(mouseY-25)||px;
+  dss-left: mouseX-25;
+  top: ||mouseY-25||;
+  z-index: 999;
 }
 
-
-
-header{
-  width: 100%;
-  height: ||dss.limitDown(64)(-(ionScrollY) + 125):125||px;
-  top: 0;
-  position: absolute;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  z-index:5;
-}
-
-
-.profile-picture{
-  width: 75px;
-  height: 75px;
-  position: fixed;
-  top:100px;
-  top: ||dss.if(ionScrollY<=0)(100)(100)||px;
-  left: 9px;
-  background: red;
-  transform: scale(||dss.if(ionScrollY>=0)(dss.limitDown(0.55)(1-(ionScrollY/200)))(1)||);
-  transform-origin: 50% 100%;
-  z-index: ||dss.limitDown(-10)(-(Math.ceil(ionScrollY-64))):10||;
-}
-
-
-.list:last-child{
-    margin-top: 170px;
-}
-
-
-ion-list{
-    z-index: -1;
-    position: relative;
+.box:dss{
+  background: companyColor:red;
 }

@@ -599,7 +599,8 @@
     return {
       core : {
         myRules : {},
-        refreshValues : {}
+        refreshValues : {},
+        nonDynamicRules : {}
       }
     };
 
@@ -709,9 +710,19 @@
 
 	dss.core.findDynamics = function(rules){
 
+		var pseudo = false;
+		var selectors = rules.selectors.join(',');
+		var explicitDssProperty = false;
+		var isDynamic = false;
 
 		var declarations = rules.declarations.filter(function(rule){
-			return rule.value.indexOf('||') !== -1;
+			isDynamic = rule.value.indexOf('||') !== -1 || rule.parent.selectors.join('').indexOf(':dss') !== -1 || rule.property.indexOf('dss-') !== -1;
+			if (!isDynamic){
+				if (!dss.core.nonDynamicRules[selectors])
+					dss.core.nonDynamicRules[selectors] = {};
+				dss.core.nonDynamicRules[selectors][rule.property] = rule.value;
+			}
+			return isDynamic;
 		}).map(function(prop){
 			var obj = {};
 			obj[prop.property] = prop.value;
@@ -719,19 +730,28 @@
 		});
 
 
+
 		if (declarations.length > 0){
-			dss.core.refreshValues[rules.selectors.join(',')] = declarations;	
+			pseudo = selectors.indexOf(':dss') !== -1;
+			if (pseudo)
+				selectors = selectors.replace(/:dss/gmi,'');
 
-			var newObj = {};
-			dss.core.refreshValues[rules.selectors.join(',')].map(function(property){
+			if (!dss.core.refreshValues[selectors]){
+				dss.core.refreshValues[selectors] = {};
+			}
 
+			declarations.map(function(property){
 				Object.keys(property).map(function(prop){
-					newObj[prop] = property[prop];
+					var propName = prop.replace('dss-','');
+					explicitDssProperty = false;
+					explicitDssProperty = prop.indexOf('dss-') !== -1;
+					if (pseudo || explicitDssProperty){
+						dss.core.refreshValues[selectors][propName] = '||'+property[prop]+'||';
+					}else{
+						dss.core.refreshValues[selectors][propName] = property[prop];
+					}
 				});
-
 			});
-
-			dss.core.refreshValues[rules.selectors.join(',')] = newObj;
 		}
 	};
 
@@ -798,7 +818,6 @@
 	'use strict';
 	dss.core.generateCss = function (rules){
 
-
 		return Object.keys(rules).map(function(rule){
 
 			if (Object.keys(rules[rule]).length === 1){
@@ -806,9 +825,8 @@
 				return rule+'{'+key+':'+rules[rule][key].value+'}';
 			}
 
-			return rule+'{'+Object.keys(rules[rule]).reduce(function(acc,a,i,fullArr){
+			return '\n'+rule+'\n{'+Object.keys(rules[rule]).reduce(function(acc,a,i,fullArr){
 
-				
 				if (i === 1){
 					if(typeof rules[rule][acc] === 'string'){
 						acc = acc+':'+rules[rule][acc]+';';
@@ -1063,6 +1081,20 @@
 
 	dss.core.defineMethod('pon',function(num){
 		return Math.max(0,num);
+	});
+
+})(this.dss);
+//File : src/helpers/dss.reference.js
+
+(function(dss){
+'use strict';
+
+	dss.core.defineMethod('reference',function(selector,property,relation){
+
+			if (dss.core.refreshValues[selector])
+				if(dss.core.refreshValues[selector][property])
+					return dss.core.refreshValues[selector][property].value;
+			return dss.core.nonDynamicRules[selector][property];
 	});
 
 })(this.dss);
