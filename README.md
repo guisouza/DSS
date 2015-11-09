@@ -123,7 +123,7 @@ Automatically receives the window height.
 ```css
 /*margin-top will aways be 200 or more*/
  header{
-  margin-top : ||dss.limitDown(200)(scrollY)||px;
+  margin-top : ||dss.floor(200)(scrollY)||px;
  }
 ```
 
@@ -131,7 +131,7 @@ Automatically receives the window height.
 ```css
 /*margin-top will aways be 200 or less*/
  header{
-  margin-top : ||dss.limitUp(200)(scrollY)||px;
+  margin-top : ||dss.ceil(200)(scrollY)||px;
  }
 ```
 
@@ -205,7 +205,7 @@ console.log('there is a render cycle =D')
 ```
 
 # Version 
-0.1.0 **Beta**
+0.1.1 **Beta**
 
 # Building
 ```bash

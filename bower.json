@@ -1,6 +1,6 @@
 {
   "name": "dss",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/guisouza/dss",
   "description": "DSS - Dynamic Style Sheets",
   "main": "dist/dss.min.js",
