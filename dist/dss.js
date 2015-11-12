@@ -713,6 +713,9 @@
 
 	dss.core.findDynamics = function(rules){
 
+		if (rules.type !== 'rule' && rules.type !== 'page')
+			return;
+
 		var pseudo = false;
 		var selectors = rules.selectors.join(',');
 		var explicitDssProperty = false;
