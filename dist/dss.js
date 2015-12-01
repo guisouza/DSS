@@ -722,6 +722,8 @@
 		var isDynamic = false;
 
 		var declarations = rules.declarations.filter(function(rule){
+			if (rule.type !== 'declaration')
+				return false;
 			isDynamic = rule.value.indexOf('||') !== -1 || rule.parent.selectors.join('').indexOf(':dss') !== -1 || rule.property.indexOf('dss-') !== -1;
 			if (!isDynamic){
 				if (!dss.core.nonDynamicRules[selectors])
