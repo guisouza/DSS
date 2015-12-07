@@ -13,6 +13,8 @@
 				return {
 					x : e.pageX,
 					y : e.pageY,
+					clientX: e.clientX,
+					clientY: e.clientY,
 				};
 			}
 		};

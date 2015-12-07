@@ -98,10 +98,16 @@ dss.setProperty('companyColor','#1616FF')
 # Default Auto-Binded Properties
 
 ##### **mouseX**
-Automatically receives the x position of the cursor.
+Automatically receives the x position of the cursor related to the document.
 
 ##### **mouseY**
-Automatically receives the y position of the cursor.
+Automatically receives the y position of the cursor related to the document.
+
+##### **mouseClientX**
+Automatically receives the x position of the cursor related to the viewport
+
+##### **mouseClientY**
+Automatically receives the y position of the cursor related to the viewport
 
 ##### **scrollX**
 Automatically receives the x position of the window scroll.
