@@ -218,7 +218,7 @@ console.log('there is a render cycle =D')
 ```
 
 # Version 
-0.1.1 **Beta**
+0.1.2 **Beta**
 
 # Building
 ```bash
