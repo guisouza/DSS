@@ -1207,14 +1207,18 @@
 
 			getter : function(e){
 				return {
-					width : window.innerWidth,
-					height : window.innerHeight
+					innerWidth : window.innerWidth,
+					innerHeight : window.innerHeight,
+					outerWidth: window.outerWidth,
+					outerHeight: window.outerHeight
 				};
 			},
 			default : function(){
 				return {
-					width : window.innerWidth,
-					height : window.innerHeight
+					innerWidth : window.innerWidth,
+					innerHeight : window.innerHeight,
+					outerWidth: window.outerWidth,
+					outerHeight: window.outerHeight
 				};
 			}
 		};
