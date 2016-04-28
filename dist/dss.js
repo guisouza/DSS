@@ -912,8 +912,21 @@
 					 	value : dss.core.findMatch(dss.core.refreshValues[selector][_property])
 					 };
 				}else{
-					if (dss.core.refreshValues[selector][_property].originalValue.indexOf(property) !== -1 ||property === undefined){
-						dss.core.refreshValues[selector][_property].value = dss.core.findMatch(dss.core.refreshValues[selector][_property].originalValue);
+					if (property && typeof property === 'object'){
+						var mustRefreshValues = false;
+						property.forEach(function(prop){
+							if (dss.core.refreshValues[selector][_property].originalValue.indexOf(prop) !== -1){
+								mustRefreshValues = true;
+								return;
+							}
+						});
+						if (mustRefreshValues){
+							dss.core.refreshValues[selector][_property].value = dss.core.findMatch(dss.core.refreshValues[selector][_property].originalValue);
+						}
+					}else{
+						if (dss.core.refreshValues[selector][_property].originalValue.indexOf(property) !== -1 ||property === undefined){
+							dss.core.refreshValues[selector][_property].value = dss.core.findMatch(dss.core.refreshValues[selector][_property].originalValue);
+						}
 					}
 				}
 			});
